@@ -1,10 +1,16 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-export function Tooltip({ name, substance }) {
-    return (
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded-lg px-3 py-2 shadow-lg w-52 z-10">
-            <p className="font-semibold mb-1">{name}</p>
-            <p className="text-gray-200">{substance}</p>
-        </div>
-    );
+export function Tooltip({ text }) {
+	return (
+		<motion.div
+			initial={{ opacity: 0, x: -5 }}
+			animate={{ opacity: 1, x: 0 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0 }}
+			className="absolute left-full ml-2 bg-black text-white text-xs rounded-md px-3 py-2 shadow-lg z-10 w-max whitespace-nowrap"
+		>
+			{text}
+		</motion.div>
+	);
 }

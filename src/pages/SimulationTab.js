@@ -1,63 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
 import { Apparatus } from "../components/Apparatus";
+import { Pump } from "../components/Pump";
+import { Collector } from "../components/Collector";
+import { Filter } from "../components/Filter";
 import { Pipeline } from "../components/Pipeline";
 
-export default function SumilationTab() {
-    const [temp1, setTemp1] = useState(40);
-    const [temp2, setTemp2] = useState(35);
-    const [isRunning, setIsRunning] = useState(false);
+export default function SimulationTab() {
+  return (
+    <div className="relative w-[1200px] h-[600px] border border-gray-300 bg-white rounded-2xl shadow-md p-6 overflow-hidden">
+      {/* Верхний ряд */}
+      <Apparatus id={1} name="Аппарат 1: Углеводородная фаза" x={50} y={50} />
+      <Apparatus id={2} name="Аппарат 2: Водная фаза" x={200} y={50} />
+      <Apparatus id={5} name="Аппарат 5: Инициатор (K₂S₂O₈)" x={400} y={50} />
+      <Apparatus id={6} name="Аппарат 6: Аммиачная вода" x={550} y={50} />
+      <Apparatus id={7} name="Аппарат 7: Сульфит натрия" x={700} y={50} />
+      <Apparatus id={8} name="Аппарат 8: Стабилизатор" x={850} y={50} />
 
-    const handleStart = () => {
-        setIsRunning(true);
-        setTimeout(() => setIsRunning(false), 2200);
-    };
+      {/* Нижний ряд */}
+      <Apparatus id={3} name="Аппарат 3: Смеситель" x={150} y={300} />
+      <Pump id={4} x={350} y={310} />
+      <Apparatus id={9} name="Аппарат 9: Полимеризатор" x={500} y={300} />
+      <Collector id={10} x={700} y={300} />
+      <Pump id={11} x={850} y={310} />
+      <Filter id={12} x={950} y={300} />
 
-    return (
-        <div className="relative w-[800px] h-[450px] border border-gray-300 bg-white rounded-2xl shadow-md p-6">
-            <div className="flex justify-end mb-4">
-                <button
-                    onClick={handleStart}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow"
-                >
-                    Запустить процесс
-                </button>
-            </div>
-
-            <Apparatus
-                id="1"
-                name="Аппарат приготовления углеводородной фазы"
-                substance="Хлоропрен, канифоль, сера"
-                x={100}
-                y={180}
-                temperature={temp1}
-            >
-                <label className="text-sm text-gray-700">Температура (°C):</label>
-                <input
-                    type="number"
-                    value={temp1}
-                    onChange={(e) => setTemp1(e.target.value)}
-                    className="border rounded px-2 py-1 w-20 ml-2 text-sm"
-                />
-            </Apparatus>
-
-            <Apparatus
-                id="2"
-                name="Аппарат приготовления водной фазы"
-                substance="Раствор едкого натра, соли сульфокислот"
-                x={500}
-                y={180}
-                temperature={temp2}
-            >
-                <label className="text-sm text-gray-700">Температура (°C):</label>
-                <input
-                    type="number"
-                    value={temp2}
-                    onChange={(e) => setTemp2(e.target.value)}
-                    className="border rounded px-2 py-1 w-20 ml-2 text-sm"
-                />
-            </Apparatus>
-
-            <Pipeline from={{ x: 196, y: 210 }} to={{ x:500, y: 210 }} active={isRunning} />
-        </div>
-    );
+      {/* Соединения */}
+      <Pipeline from={{ x: 100, y: 130 }} to={{ x: 170, y: 330 }} /> {/* 1 → 3 */}
+      <Pipeline from={{ x: 220, y: 130 }} to={{ x: 170, y: 330 }} /> {/* 2 → 3 */}
+      <Pipeline from={{ x: 170, y: 330 }} to={{ x: 380, y: 330 }} /> {/* 3 → 4 */}
+      <Pipeline from={{ x: 380, y: 330 }} to={{ x: 520, y: 330 }} /> {/* 4 → 9 */}
+      <Pipeline from={{ x: 430, y: 130 }} to={{ x: 520, y: 330 }} /> {/* 5 → 9 */}
+      <Pipeline from={{ x: 580, y: 130 }} to={{ x: 520, y: 330 }} /> {/* 6 → 9 */}
+      <Pipeline from={{ x: 730, y: 130 }} to={{ x: 520, y: 330 }} /> {/* 7 → 9 */}
+      <Pipeline from={{ x: 880, y: 130 }} to={{ x: 520, y: 330 }} /> {/* 8 → 9 */}
+      <Pipeline from={{ x: 520, y: 330 }} to={{ x: 720, y: 330 }} /> {/* 9 → 10 */}
+      <Pipeline from={{ x: 720, y: 330 }} to={{ x: 870, y: 330 }} /> {/* 10 → 11 */}
+      <Pipeline from={{ x: 870, y: 330 }} to={{ x: 970, y: 330 }} /> {/* 11 → 12 */}
+    </div>
+  );
 }
