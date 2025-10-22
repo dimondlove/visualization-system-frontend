@@ -13,7 +13,7 @@ export function Collector({ id, name, x, y }) {
                 onMouseLeave={() => setHovered(false)}
             >
                 <motion.div whileHover={{ scale: 1.05 }}>
-                    <span className="text-sm font-semibold">Сборник {id}</span>
+                    <span className="text-sm font-semibold">Сборник</span>
                 </motion.div>
 
                 {hovered && <Tooltip name={name || "Сборник"} position="right" />}
