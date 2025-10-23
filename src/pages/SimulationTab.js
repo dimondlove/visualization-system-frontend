@@ -56,7 +56,7 @@ export default function SimulationTab() {
 			{/* Соединения между источниками и аппаратами */}
 			<Pipeline points={[{ x: 90, y: 120 }, { x: 120, y: 120 }, {x: 120, y: 200}]} curved /> {/* I → 1 */}
 			<Pipeline points={[{ x: 200, y: 120 }, { x: 170, y: 120 }, {x: 170, y: 200}]} curved /> {/* II → 1 */}
-			<Pipeline points={[{ x: 350, y: 120 }, { x: 370, y: 120 }, {x: 370, y: 200}]} curved /> {/* III → 2 */}]
+			<Pipeline points={[{ x: 350, y: 120 }, { x: 370, y: 120 }, {x: 370, y: 200}]} curved /> {/* III → 2 */}
 			<Pipeline points={[{ x: 540, y: 120 }, { x: 420, y: 120 }, {x: 420, y: 200}]} /> {/* IV → 2 */}
 			<Pipeline points={[{ x: 620, y: 150 }, { x: 590, y: 150 }, {x: 590, y: 200}]} curved /> {/* V → 5 */}
 			<Pipeline points={[{ x: 720, y: 170 }, { x: 720, y: 200 }]} curved /> {/* VI → 6 */}
