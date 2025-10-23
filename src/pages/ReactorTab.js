@@ -105,7 +105,7 @@ export default function ReactorTab() {
 					</div>
 
 					{/* График */}
-					 <div className="border rounded-xl p-4 bg-white shadow-md h-[300px]">
+					<div className="border rounded-xl p-4 bg-white shadow-md h-[300px]">
 						<h3 className="text-md font-medium mb-2">График концентраций</h3>
 						<ResponsiveContainer width="100%" height="100%">
 							<LineChart
@@ -114,33 +114,33 @@ export default function ReactorTab() {
 							>
 								<CartesianGrid strokeDasharray="3 3" />
 								<XAxis
-								dataKey="L"
-								label={{ value: "L", position: "insideBottom", offset: -5 }}
+									dataKey="L"
+									label={{ value: "L", position: "insideBottom", offset: -5 }}
 								/>
 								<YAxis />
 								<Tooltip />
 								<Legend
-								layout="vertical"
-								align="right"
-								verticalAlign="middle"
-								wrapperStyle={{
-									right: 10,
-									top: "50%",
-									transform: "translateY(-50%)",
-									backgroundColor: "#ffffffcc",
-									borderRadius: "8px",
-									padding: "8px",
-									boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
-									lineHeight: "1.5em",
-								}}
+									layout="vertical"
+									align="right"
+									verticalAlign="middle"
+									wrapperStyle={{
+										right: 10,
+										top: "50%",
+										transform: "translateY(-50%)",
+										backgroundColor: "#ffffffcc",
+										borderRadius: "8px",
+										padding: "8px",
+										boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
+										lineHeight: "1.5em",
+									}}
 								/>
 								<Line type="monotone" dataKey="Xa" stroke="#3b82f6" strokeWidth={2} name="Xa" />
 								<Line type="monotone" dataKey="Xb" stroke="#10b981" strokeWidth={2} name="Xb" />
 								<Line type="monotone" dataKey="Xc" stroke="#f59e0b" strokeWidth={2} name="Xc" />
 								<Line type="monotone" dataKey="Xd" stroke="#ef4444" strokeWidth={2} name="Xd" />
 							</LineChart>
-							</ResponsiveContainer>
-					 </div>
+						</ResponsiveContainer>
+					</div>
 				</div>
 			</div>
 		</div>
