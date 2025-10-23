@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Tabs } from "./components/Tabs";
 import SumilationTab from "./pages/SimulationTab";
-import Task2Tab from "./pages/Task2Tab";
 import Task3Tab from "./pages/Task3Tab";
+import ReactorTab from "./pages/ReactorTab";
 
 export default function App() {
     const [activeTab, setActiveTab] = useState("task1");
@@ -17,7 +17,7 @@ export default function App() {
 
             <div className="w-full flex justify-center mt-6">
                 {activeTab === "task1" && <SumilationTab />}
-                {activeTab === "task2" && <Task2Tab />}
+                {activeTab === "task2" && <ReactorTab />}
                 {activeTab === "task3" && <Task3Tab />}
             </div>
         </div>
