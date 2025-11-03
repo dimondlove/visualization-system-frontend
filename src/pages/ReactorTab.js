@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { reactorTestData } from "../data/reactorTestData";
+import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 import {
 	LineChart,
 	Line,
@@ -34,11 +35,12 @@ export default function ReactorTab() {
 		Xb: 0.0,
 		Xc: 0.5,
 		Xd: 0.0,
+		L: 1.0,
 	});
 
 	const [tableData, setTableData] = useState([]);
-	const [Lvalue, setLvalue] = useState(0.0);
 	const [Lresult, setLresult] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,22 +50,35 @@ export default function ReactorTab() {
 		setLocalParams({ ...localParams, [e.target.name]: e.target.value });
 	};
 
-	const handleCalculate = () => {
-		setTableData(reactorTestData);
+	const handleCalculate = async () => {
+		setLoading(true);
+		try {
+			const response = await axios.post(`${API_BASE_URL}/calculateAll`, formData);
+			setTableData(response.data);
+		} catch (error) {
+			console.error("Ошибка при расчёте:", error);
+      		alert("Ошибка при запросе расчёта");
+		} finally {
+			setLoading(false);
+		}
 	};
 
-	const handleLChange = (e) => {
-		setLvalue(parseFloat(e.target.value));
-	};
-
-	const handleLCalc = () => {
-		if (!reactorTestData.length)
-			return;
-
-		let closest = reactorTestData.reduce((prev, curr) =>
-			Math.abs(curr.L - Lvalue) < Math.abs(prev.L - Lvalue) ? curr : prev
-		);
-		setLresult(closest);
+	const handleLCalc = async () => {
+		setLoading(true);
+		const requestBody = {
+			...localParams,
+			lMax: formData.lMax,
+			h: formData.h,
+		};
+		try {
+			const response = await axios.post(`${API_BASE_URL}/calculateAtL`, requestBody);
+      		setLresult(response.data);
+		} catch (error) {
+			console.error("Ошибка при расчёте по L:", error);
+      		alert("Ошибка при запросе расчёта по L");
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -94,9 +109,10 @@ export default function ReactorTab() {
 						</div>
 						<button
 							onClick={handleCalculate}
+							disabled={loading}
 							className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition"
 						>
-							Рассчитать
+							{loading ? "Рассчет..." : "Рассчитать"}
 						</button>
 					</div>
 
@@ -107,7 +123,7 @@ export default function ReactorTab() {
 						</h3>
 
 						<div className="grid grid-cols-2 gap-3 mb-3">
-							{Object.keys(localParams).map((key) => (
+							{Object.keys(localParams).filter((k) => k !== "L").map((key) => (
 								<div key={key} className="flex flex-col">
 									<label className="text-sm text-gray-700 mb-1">{key}</label>
 									<input
@@ -127,30 +143,30 @@ export default function ReactorTab() {
 							<input 
 								type="number"
 								step="0.1"
-								value={Lvalue}
-								onChange={handleLChange}
+								name="L"
+								value={localParams.L}
+								onChange={handleLocalChange}
 								className="border rounded-lg p-2 w-24 text-sm focus:ring focus:ring-blue-200"
 							/>
 							<button
 								onClick={handleLCalc}
+								disabled={loading}
 								className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg transition"
 							>
-								Вычислить
+								{loading ? "..." : "Вычислить"}
 							</button>
 						</div>
 
 						{Lresult && (
 							<div className="mt-2 text-sm text-gray-700">
-								<p><b>L:</b> {Lresult.L.toFixed(2)}</p>
+								<p><b>L:</b> {Lresult.L}</p>
 								<p>
-									<b>Xa:</b> {Lresult.Xa.toFixed(4)} | <b>Xb:</b>{" "}
-                  					{Lresult.Xb.toFixed(4)}
+									<b>Xa:</b> {Lresult.Xa} | <b>Xb:</b> {Lresult.Xb}
 								</p>
 								<p>
-									<b>Xc:</b> {Lresult.Xc.toFixed(4)} | <b>Xd:</b>{" "}
-									{Lresult.Xd.toFixed(4)}
+									<b>Xc:</b> {Lresult.Xc} | <b>Xd:</b> {Lresult.Xd}
 								</p>
-								<p><b>Σ:</b> {Lresult.sum.toFixed(4)}</p>
+								<p><b>Σ:</b> {Lresult.sum}</p>
 							</div>
 						)}
 					</div>
@@ -178,12 +194,12 @@ export default function ReactorTab() {
 							<tbody>
 								{tableData.map((row, idx) => (
 									<tr key={idx} className="hover:bg-gray-50">
-										<td className="border px-2 py-1">{row.L.toFixed(2)}</td>
-										<td className="border px-2 py-1">{row.Xa.toFixed(4)}</td>
-										<td className="border px-2 py-1">{row.Xb.toFixed(4)}</td>
-										<td className="border px-2 py-1">{row.Xc.toFixed(4)}</td>
-										<td className="border px-2 py-1">{row.Xd.toFixed(4)}</td>
-										<td className="border px-2 py-1 font-semibold">{row.sum.toFixed(4)}</td>
+										<td className="border px-2 py-1">{row.L}</td>
+										<td className="border px-2 py-1">{row.Xa}</td>
+										<td className="border px-2 py-1">{row.Xb}</td>
+										<td className="border px-2 py-1">{row.Xc}</td>
+										<td className="border px-2 py-1">{row.Xd}</td>
+										<td className="border px-2 py-1 font-semibold">{row.sum}</td>
 									</tr>
 								))}
 							</tbody>
