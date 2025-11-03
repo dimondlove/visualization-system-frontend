@@ -13,26 +13,57 @@ import {
 
 export default function ReactorTab() {
 	const [formData, setFormData] = useState({
-		U: "",
-		lMax: "",
-		h: "",
-		k1: "",
-		k2: "",
-		k3: "",
-		Xa: "",
-		Xb: "",
-		Xc: "",
-		Xd: "",
+		U: 4,
+		lMax: 2.0,
+		h: 0.1,
+		k1: 0.5,
+		k2: 2.0,
+		k3: 1.0,
+		Xa: 0.5,
+		Xb: 0.0,
+		Xc: 0.5,
+		Xd: 0.0,
+	});
+
+	const [localParams, setLocalParams] = useState({
+		U: 4,
+		k1: 0.5,
+		k2: 2.0,
+		k3: 1.0,
+		Xa: 0.5,
+		Xb: 0.0,
+		Xc: 0.5,
+		Xd: 0.0,
 	});
 
 	const [tableData, setTableData] = useState([]);
+	const [Lvalue, setLvalue] = useState(0.0);
+	const [Lresult, setLresult] = useState(null);
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
+	const handleLocalChange = (e) => {
+		setLocalParams({ ...localParams, [e.target.name]: e.target.value });
+	};
+
 	const handleCalculate = () => {
 		setTableData(reactorTestData);
+	};
+
+	const handleLChange = (e) => {
+		setLvalue(parseFloat(e.target.value));
+	};
+
+	const handleLCalc = () => {
+		if (!reactorTestData.length)
+			return;
+
+		let closest = reactorTestData.reduce((prev, curr) =>
+			Math.abs(curr.L - Lvalue) < Math.abs(prev.L - Lvalue) ? curr : prev
+		);
+		setLresult(closest);
 	};
 
 	return (
@@ -67,6 +98,61 @@ export default function ReactorTab() {
 						>
 							Рассчитать
 						</button>
+					</div>
+
+					{/* Расчет при заданном L */}
+					<div className="border rounded-xl p-4 shadow-md bg-white">
+						<h3 className="text-lg font-medium mb-3">
+							Концентрации при заданном L
+						</h3>
+
+						<div className="grid grid-cols-2 gap-3 mb-3">
+							{Object.keys(localParams).map((key) => (
+								<div key={key} className="flex flex-col">
+									<label className="text-sm text-gray-700 mb-1">{key}</label>
+									<input
+										type="number"
+										step="any"
+										name={key}
+										value={localParams[key]}
+										onChange={handleLocalChange}
+										className="border rounded-lg p-2 text-sm focus:ring focus:ring-green-200"
+									/>
+								</div>
+							))}
+						</div>
+
+						<div className="flex gap-3 items-center mb-3">
+							<label className="text-sm text-gray-700">L =</label>
+							<input 
+								type="number"
+								step="0.1"
+								value={Lvalue}
+								onChange={handleLChange}
+								className="border rounded-lg p-2 w-24 text-sm focus:ring focus:ring-blue-200"
+							/>
+							<button
+								onClick={handleLCalc}
+								className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg transition"
+							>
+								Вычислить
+							</button>
+						</div>
+
+						{Lresult && (
+							<div className="mt-2 text-sm text-gray-700">
+								<p><b>L:</b> {Lresult.L.toFixed(2)}</p>
+								<p>
+									<b>Xa:</b> {Lresult.Xa.toFixed(4)} | <b>Xb:</b>{" "}
+                  					{Lresult.Xb.toFixed(4)}
+								</p>
+								<p>
+									<b>Xc:</b> {Lresult.Xc.toFixed(4)} | <b>Xd:</b>{" "}
+									{Lresult.Xd.toFixed(4)}
+								</p>
+								<p><b>Σ:</b> {Lresult.sum.toFixed(4)}</p>
+							</div>
+						)}
 					</div>
 
 					<div className="border rounded-xl p-4 shadow-inner bg-gray-50 h-48 flex items-center justify-center text-gray-500 italic">
@@ -105,17 +191,27 @@ export default function ReactorTab() {
 					</div>
 
 					{/* График */}
-					<div className="border rounded-xl p-4 bg-white shadow-md h-[300px]">
+					<div className="border rounded-xl p-4 bg-white shadow-md h-[400px]">
 						<h3 className="text-md font-medium mb-2">График концентраций</h3>
 						<ResponsiveContainer width="100%" height="100%">
 							<LineChart
 								data={tableData}
-								margin={{ top: 10, right: 80, left: 10, bottom: 10 }}
+								margin={{ top: 10, right: 90, left: 40, bottom: 40 }}
 							>
 								<CartesianGrid strokeDasharray="3 3" />
 								<XAxis
 									dataKey="L"
-									label={{ value: "L", position: "insideBottom", offset: -5 }}
+									label={{ 
+										value: "L", 
+										position: "insideBottom", 
+										dy: 20, 
+										style: {
+											fill: "#374151", // тёмно-серый (Tailwind gray-700)
+											fontWeight: 500,
+											fontSize: 14,
+										},
+									}}
+									tick={{ fill: "#4b5563", fontSize: 12 }}
 								/>
 								<YAxis />
 								<Tooltip />
@@ -134,10 +230,10 @@ export default function ReactorTab() {
 										lineHeight: "1.5em",
 									}}
 								/>
-								<Line type="monotone" dataKey="Xa" stroke="#3b82f6" strokeWidth={2} name="Xa" />
-								<Line type="monotone" dataKey="Xb" stroke="#10b981" strokeWidth={2} name="Xb" />
-								<Line type="monotone" dataKey="Xc" stroke="#f59e0b" strokeWidth={2} name="Xc" />
-								<Line type="monotone" dataKey="Xd" stroke="#ef4444" strokeWidth={2} name="Xd" />
+								<Line type="monotone" dataKey="Xa" stroke="#3b82f6" strokeWidth={2} name="Xa" dot={false} />
+								<Line type="monotone" dataKey="Xb" stroke="#10b981" strokeWidth={2} name="Xb" dot={false} />
+								<Line type="monotone" dataKey="Xc" stroke="#f59e0b" strokeWidth={2} name="Xc" dot={false} />
+								<Line type="monotone" dataKey="Xd" stroke="#ef4444" strokeWidth={2} name="Xd" dot={false} />
 							</LineChart>
 						</ResponsiveContainer>
 					</div>
