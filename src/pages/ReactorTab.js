@@ -87,6 +87,14 @@ export default function ReactorTab() {
         		Моделирование химической реакции в реакторе идеального вытеснения
       		</h2>
 
+			<div className="flex justify-center items-center mb-8">
+				<img
+					src="/reactor-diagram.jpg"
+					alt="Схема реактора идеального вытеснения"
+					className="w-full max-w-[1000px] rounded-lg shadow-lg border border-gray-200"
+				/>
+			</div>
+
 			<div className="flex gap-8">
 				{/* Левая часть: форма и схема */}
 				<div className="w-1/3 flex flex-col gap-6">
@@ -171,9 +179,6 @@ export default function ReactorTab() {
 						)}
 					</div>
 
-					<div className="border rounded-xl p-4 shadow-inner bg-gray-50 h-48 flex items-center justify-center text-gray-500 italic">
-						Схема реактора (заглушка)
-					</div>
 				</div>
 
 				{/* Правая часть: таблица и график */}

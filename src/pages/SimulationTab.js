@@ -21,7 +21,7 @@ export default function SimulationTab() {
 	return (
 		<div className="relative w-[1400px] h-[800px] border border-gray-300 bg-white rounded-2xl shadow-md p-6 overflow-visible">
 			{/* Верхний ряд аппаратов */}
-			<Apparatus id={1} name="Аппарат приготовления углеводородной фазы" x={100} y={200} temperature={temps[1]} />
+			<Apparatus id={1} name="Аппарат приготовления углеводородной фазы" x={63} y={150} temperature={temps[1]} />
 			<Apparatus id={2} name="Аппарат приготовления водной фазы" x={350} y={200} temperature={temps[2]} />
 			<Apparatus id={5} name="Аппарат приготовления раствора инициатора" x={520} y={200} temperature={temps[5]} />
 			<Apparatus id={6} name="Аппарат приготовления раствора активатора" x={700} y={200} temperature={temps[6]} />
@@ -54,8 +54,8 @@ export default function SimulationTab() {
 			<SubstanceSource roman="XIV" name="Латекс на выделение" x={1200} y={510} />
 			
 			{/* Соединения между источниками и аппаратами */}
-			<Pipeline points={[{ x: 90, y: 120 }, { x: 120, y: 120 }, {x: 120, y: 200}]} curved /> {/* I → 1 */}
-			<Pipeline points={[{ x: 200, y: 120 }, { x: 170, y: 120 }, {x: 170, y: 200}]} curved /> {/* II → 1 */}
+			<Pipeline points={[{ x: 90, y: 120 }, { x: 120, y: 120 }, {x: 120, y: 208}]} curved /> {/* I → 1 */}
+			<Pipeline points={[{ x: 200, y: 120 }, { x: 170, y: 120 }, {x: 170, y: 213}]} curved /> {/* II → 1 */}
 			<Pipeline points={[{ x: 350, y: 120 }, { x: 370, y: 120 }, {x: 370, y: 200}]} curved /> {/* III → 2 */}
 			<Pipeline points={[{ x: 540, y: 120 }, { x: 420, y: 120 }, {x: 420, y: 200}]} /> {/* IV → 2 */}
 			<Pipeline points={[{ x: 620, y: 150 }, { x: 590, y: 150 }, {x: 590, y: 200}]} curved /> {/* V → 5 */}
@@ -74,7 +74,7 @@ export default function SimulationTab() {
 			
 
 			{/* Соединения между аппаратами */}
-			<Pipeline points={[{x: 150, y: 296}, {x: 150, y: 400}, {x: 250, y: 400}, {x: 250, y: 450}]} curved /> {/* 1 → 3 */}
+			<Pipeline points={[{x: 142, y: 310}, {x: 150, y: 400}, {x: 250, y: 400}, {x: 250, y: 450}]} curved /> {/* 1 → 3 */}
 			<Pipeline points={[{x: 400, y: 296}, {x: 400, y: 400}, {x: 300, y: 400}, {x: 300, y: 450}]} curved /> {/* 2 → 3 */}
 			<Pipeline points={[{x: 270, y: 546}, {x: 270, y: 600}, {x: 340, y: 600}]} /> {/* 3 → 4 */}
 			<Pipeline points={[{x: 380, y: 600}, {x: 420, y: 600}, {x: 420, y: 470}, {x: 322, y: 470}]} /> {/* 4 → 3 */}
