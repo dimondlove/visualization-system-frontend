@@ -37,10 +37,10 @@ export function Apparatus({ id, name, substance, x, y, temperature, children }) 
 			{temperature && <TemperatureBadge temperature={temperature} />}
 				
 			<motion.div 
-				className="relative flex items-center justify-center"
+				className="relative flex items-center justify-center z-9"
 				whileHover={{ scale: 1.05 }}
 			>
-				<Icon className="w-40 h-40 z-100" />
+				<Icon className="w-40 h-40 z-150" />
 			</motion.div>
 
 			{hovered && <Tooltip name={name} substance={substance} position="right" />}
