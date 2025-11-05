@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Tooltip } from "./Tooltip";
 import { TemperatureBadge } from "./TemperatureBadge";
+import { ConversionBadge } from "./ConversionBadge";
 
 import { ReactComponent as Apparatus1 } from "../assets/svg/apparatus1.svg";
 import { ReactComponent as Apparatus2 } from "../assets/svg/apparatus2.svg";
@@ -23,7 +24,7 @@ const iconMap = {
 	9: Apparatus9,
 };
 
-export function Apparatus({ id, name, substance, x, y, temperature, children }) {
+export function Apparatus({ id, name, substance, x, y, temperature, conversion,  children }) {
 	const [hovered, setHovered] = useState(false);
 	const Icon = iconMap[id];
 
@@ -35,9 +36,10 @@ export function Apparatus({ id, name, substance, x, y, temperature, children }) 
 			onMouseLeave={() => setHovered(false)}
 		>
 			{temperature && <TemperatureBadge temperature={temperature} />}
+			{conversion && <ConversionBadge conversion={conversion} />}
 				
 			<motion.div 
-				className="relative flex items-center justify-center z-9"
+				className="relative flex items-center justify-center z-9 cursor-pointer"
 				whileHover={{ scale: 1.05 }}
 			>
 				<Icon className="w-40 h-40 z-150" />

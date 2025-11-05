@@ -10,7 +10,7 @@ export function Tooltip({ name, substance, position = "right" }) {
 			animate={{ opacity: 1, x: 0 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0 }}
-			className={`absolute ${positionClass} bg-black text-white text-xs rounded-md px-3 py-2 shadow-lg z-10 w-max whitespace-nowrap`}
+			className={`absolute ${positionClass} bg-black text-white text-xs rounded-md px-3 py-2 shadow-lg z-10 max-w-[220px] whitespace-pre-line`}
 		>
 			<p className="font-semibold mb-1">{name}</p>
 			{substance && <p className="text-gray-200">{substance}</p>}

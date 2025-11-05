@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Apparatus } from "../components/Apparatus";
 import { Pump } from "../components/Pump";
 import { Collector } from "../components/Collector";
@@ -7,17 +7,6 @@ import { Pipeline } from "../components/Pipeline";
 import { SubstanceSource } from "../components/SubstanceSource";
 
 export default function SimulationTab() {
-	const [temps, setTemps] = useState({
-		1: 40,
-		2: 35,
-		3: 42,
-		5: 30,
-		6: 25,
-		7: 25,
-		8: 33,
-		9: 50,
-	});
-
 	return (
 		<div className="relative w-[1400px] h-[800px] border border-gray-300 bg-white rounded-2xl shadow-md p-6 overflow-visible">
 			{/* Соединения между источниками и аппаратами */}
@@ -32,10 +21,10 @@ export default function SimulationTab() {
 			<Pipeline points={[{x: 620, y: 100}, {x: 840, y: 100}, {x: 840, y: 150}, {x: 770, y: 150}, {x: 770, y: 200}]} /> {/* VII → 6 */}
 			<Pipeline points={[{x: 840, y: 150}, {x: 910, y: 150}, {x: 910, y: 200}]} /> {/* VII → 7 */}
 			<Pipeline points={[{x: 990, y: 150}, {x: 960, y: 150}, {x: 960, y: 200}]} curved /> {/* VIII → 7 */}
-			<Pipeline points={[{x: 1090, y: 150}, {x: 1120, y: 150}, {x: 1120, y: 200}]} curved /> {/* IX → 8 */}
-			<Pipeline points={[{x: 1155, y: 120}, {x: 1155, y: 200}]} /> {/* X → 8 */}
-			<Pipeline points={[{x: 1200, y: 150}, {x: 1180, y: 150}, {x: 1180, y: 200}]} curved /> {/* XI → 8 */}
-			<Pipeline points={[{x: 540, y: 550}, {x: 580, y: 550}]} curved /> {/* XII → 9 */}
+			<Pipeline points={[{x: 1090, y: 150}, {x: 1120, y: 150}, {x: 1120, y: 210}]} curved /> {/* IX → 8 */}
+			<Pipeline points={[{x: 1170, y: 110}, {x: 1170, y: 210}]} /> {/* X → 8 */}
+			<Pipeline points={[{x: 1200, y: 150}, {x: 1180, y: 150}, {x: 1180, y: 210}]} curved /> {/* XI → 8 */}
+			<Pipeline points={[{x: 540, y: 530}, {x: 585, y: 530}]} curved /> {/* XII → 9 */}
 			<Pipeline points={[{x: 720, y: 500}, {x: 676, y: 500}]} curved /> {/* XIII → 9 */}
 			<Pipeline points={[{x: 1110, y: 546}, {x: 1110, y: 560}, {x: 1250, y: 560}]} /> {/* 12 → XIV */}
 			
@@ -43,37 +32,37 @@ export default function SimulationTab() {
 			{/* Соединения между аппаратами */}
 			<Pipeline points={[{x: 142, y: 310}, {x: 150, y: 400}, {x: 250, y: 400}, {x: 250, y: 450}]} curved /> {/* 1 → 3 */}
 			<Pipeline points={[{x: 395, y: 305}, {x: 400, y: 400}, {x: 300, y: 400}, {x: 300, y: 450}]} curved /> {/* 2 → 3 */}
-			<Pipeline points={[{x: 270, y: 546}, {x: 270, y: 600}, {x: 340, y: 600}]} /> {/* 3 → 4 */}
-			<Pipeline points={[{x: 380, y: 600}, {x: 420, y: 600}, {x: 420, y: 470}, {x: 322, y: 470}]} /> {/* 4 → 3 */}
-			<Pipeline points={[{x: 420, y: 480}, {x: 500, y: 480}, {x: 500, y: 450}, {x: 590, y: 450}]} /> {/* 4 → 9 */}
-			<Pipeline points={[{x: 590, y: 296}, {x: 590, y: 480}]} /> {/* 5 → 9 */}
-			<Pipeline points={[{x: 1150, y: 296}, {x: 1150, y: 350}, {x: 660, y: 350}, {x: 660, y: 480}]} /> {/* 8 → 9 */}
+			<Pipeline points={[{x: 275, y: 544}, {x: 275, y: 600}, {x: 340, y: 600}]} /> {/* 3 → 4 */}
+			<Pipeline points={[{x: 380, y: 600}, {x: 420, y: 600}, {x: 420, y: 470}, {x: 318, y: 470}]} /> {/* 4 → 3 */}
+			<Pipeline points={[{x: 420, y: 480}, {x: 500, y: 480}, {x: 500, y: 450}, {x: 564, y: 450}]} /> {/* 4 → 9 */}
+			<Pipeline points={[{x: 564, y: 291}, {x: 564, y: 470}, {x: 600, y: 470}, {x: 600, y: 485}]} /> {/* 5 → 9 */}
+			<Pipeline points={[{x: 1150, y: 290}, {x: 1150, y: 350}, {x: 660, y: 350}, {x: 660, y: 485}]} /> {/* 8 → 9 */}
 			<Pipeline points={[{x: 940, y: 296}, {x: 940, y: 350}]} /> {/* 7 → 9 */}
-			<Pipeline points={[{x: 750, y: 296}, {x: 750, y: 350}]} /> {/* 6 → 9 */}
-			<Pipeline points={[{x: 630, y: 576}, {x: 630, y: 600}, {x: 800, y: 600}, {x: 800, y: 480}, {x: 860, y: 480}]} /> {/* 9 → 10 */}
+			<Pipeline points={[{x: 745, y: 335}, {x: 745, y: 350}]} /> {/* 6 → 9 */}
+			<Pipeline points={[{x: 630, y: 576}, {x: 630, y: 600}, {x: 800, y: 600}, {x: 800, y: 480}, {x: 870, y: 480}]} /> {/* 9 → 10 */}
 			<Pipeline points={[{x: 900, y: 546}, {x: 900, y: 600}, {x: 960, y: 600}]} /> {/* 10 → 11 */}
-			<Pipeline points={[{x: 1000, y: 600}, {x: 1020, y: 600}, {x: 1020, y: 470}, {x: 1060, y: 470}]} /> {/* 11 → 12 */}
+			<Pipeline points={[{x: 1000, y: 600}, {x: 1020, y: 600}, {x: 1020, y: 480}, {x: 1100, y: 480}]} /> {/* 11 → 12 */}
 
 			{/* Выходные соединения */}
-			<Pipeline points={[{x: 580, y: 510}, {x: 560, y: 510}, {x: 560, y: 520}]} /> {/* 9 →  */}
-			<Pipeline points={[{x: 1156, y: 490}, {x: 1200, y: 490}]} /> {/* 12 →  */}
+			<Pipeline points={[{x: 590, y: 500}, {x: 560, y: 500}, {x: 560, y: 510}]} /> {/* 9 →  */}
+			<Pipeline points={[{x: 1120, y: 490}, {x: 1160, y: 490}]} /> {/* 12 →  */}
 
 			{/* Верхний ряд аппаратов */}
-			<Apparatus id={1} name="Аппарат приготовления углеводородной фазы" x={63} y={150} temperature={temps[1]} />
-			<Apparatus id={2} name="Аппарат приготовления водной фазы" x={315} y={145} temperature={temps[2]} />
-			<Apparatus id={5} name="Аппарат приготовления раствора инициатора" x={520} y={200} temperature={temps[5]} />
-			<Apparatus id={6} name="Аппарат приготовления раствора активатора" x={700} y={200} temperature={temps[6]} />
-			<Apparatus id={7} name="Аппарат приготовления раствора активатора" x={890} y={200} temperature={temps[7]} />
-			<Apparatus id={8} name="Аппарат приготовления эмульсии стабилизатора" x={1100} y={200} temperature={temps[8]} />
+			<Apparatus id={1} name="Аппарат приготовления углеводородной фазы" x={63} y={150} />
+			<Apparatus id={2} name="Аппарат приготовления водной фазы" x={315} y={145} substance={"Щелочный раствор СТЭК"} />
+			<Apparatus id={5} name="Аппарат приготовления раствора инициатора" x={484} y={132} temperature={35} />
+			<Apparatus id={6} name="Аппарат приготовления раствора активатора" x={665} y={175} substance={"Аммиачная вода"} />
+			<Apparatus id={7} name="Аппарат приготовления раствора активатора" x={860} y={140} substance={"Раствор сульфита натрия"} />
+			<Apparatus id={8} name="Аппарат приготовления эмульсии стабилизатора" x={1070} y={130} substance={"Эмульсия бензольного раствора тиурама E (тетраэтилтиурам-дисульфида) и нафтама-2"} />
 			
 
 			{/* Нижний ряд аппаратов */}
-			<Apparatus id={3} name="Смеситель" x={225} y={450} temperature={temps[3]} />
+			<Apparatus id={3} name="Смеситель" x={194} y={385} substance={"Эмульсия"} temperature={40} />
 			<Pump id={4} name="Насос" x={340} y={580} />
-			<Apparatus id={9} name="Полимеризатор" x={580} y={480} temperature={temps[9]} />
-			<Collector id={10} name="Емкость для латекса" x={860} y={450} />
+			<Apparatus id={9} name="Полимеризатор" x={550} y={418} substance={"Эмульсия, 4 %-ный раствор персульфата калия, аммиачная вода, раствор сульфита натрия, эмульсию бензольного раствора тиурама E, нафтам-2"} conversion={95} />
+			<Collector id={10} name="Емкость для латекса" x={850} y={450} substance={"Латекс"} temperature={30} />
 			<Pump id={11} name="Насос" x={960} y={580} />
-			<Filter id={12} name="Фильтр" x={1060} y={450} />
+			<Filter id={12} name="Фильтр" x={1062} y={452} substance={"Латекс"} />
 
 			{/* Источник веществ */}
 			<SubstanceSource roman="I" name="Хлоропрен" x={50} y={100} />
@@ -85,9 +74,9 @@ export default function SimulationTab() {
 			<SubstanceSource roman="VII" name="Вода" x={680} y={50} />
 			<SubstanceSource roman="VIII" name="Раствор сульфита натрия" x={990} y={130} />
 			<SubstanceSource roman="IX" name="Стабилизатор" x={1050} y={130} />
-			<SubstanceSource roman="X" name="Растворитель" x={1135} y={80} />
+			<SubstanceSource roman="X" name="Растворитель" x={1150} y={70} />
 			<SubstanceSource roman="XI" name="Тиурам" x={1200} y={130} />
-			<SubstanceSource roman="XII" name="Рассол" x={500} y={530} />
+			<SubstanceSource roman="XII" name="Рассол" x={500} y={510} />
 			<SubstanceSource roman="XIII" name="Азот" x={720} y={480} />
 			<SubstanceSource roman="XIV" name="Латекс на выделение" x={1200} y={510} />
 
