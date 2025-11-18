@@ -26,17 +26,7 @@ export default function ReactorTab() {
 		Xd: 0.0,
 	});
 
-	const [localParams, setLocalParams] = useState({
-		U: 4,
-		k1: 0.5,
-		k2: 2.0,
-		k3: 1.0,
-		Xa: 0.5,
-		Xb: 0.0,
-		Xc: 0.5,
-		Xd: 0.0,
-		L: 1.0,
-	});
+	const [L, setL] = useState(1.0);
 
 	const [tableData, setTableData] = useState([]);
 	const [Lresult, setLresult] = useState(null);
@@ -44,10 +34,6 @@ export default function ReactorTab() {
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
-	};
-
-	const handleLocalChange = (e) => {
-		setLocalParams({ ...localParams, [e.target.name]: e.target.value });
 	};
 
 	const handleCalculate = async () => {
@@ -66,7 +52,17 @@ export default function ReactorTab() {
 	const handleLCalc = async () => {
 		setLoading(true);
 		const requestBody = {
-			...localParams,
+			L: parseFloat(L),
+
+			U: formData.U,
+			k1: formData.k1,
+			k2: formData.k2,
+			k3: formData.k3,
+			Xa: formData.Xa,
+			Xb: formData.Xb,
+			Xc: formData.Xc,
+			Xd: formData.Xd,
+
 			lMax: formData.lMax,
 			h: formData.h,
 		};
@@ -130,30 +126,14 @@ export default function ReactorTab() {
 							Концентрации при заданном L
 						</h3>
 
-						<div className="grid grid-cols-2 gap-3 mb-3">
-							{Object.keys(localParams).filter((k) => k !== "L").map((key) => (
-								<div key={key} className="flex flex-col">
-									<label className="text-sm text-gray-700 mb-1">{key}</label>
-									<input
-										type="number"
-										step="any"
-										name={key}
-										value={localParams[key]}
-										onChange={handleLocalChange}
-										className="border rounded-lg p-2 text-sm focus:ring focus:ring-green-200"
-									/>
-								</div>
-							))}
-						</div>
-
 						<div className="flex gap-3 items-center mb-3">
 							<label className="text-sm text-gray-700">L =</label>
 							<input 
 								type="number"
 								step="0.1"
 								name="L"
-								value={localParams.L}
-								onChange={handleLocalChange}
+								value={L}
+								onChange={(e) => setL(e.target.value)}
 								className="border rounded-lg p-2 w-24 text-sm focus:ring focus:ring-blue-200"
 							/>
 							<button
