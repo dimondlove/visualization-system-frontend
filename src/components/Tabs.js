@@ -4,7 +4,7 @@ export function Tabs({ activeTab, setActiveTab }) {
     const tabs = [
         { id: "task1", label: "Эмульсионная полимеризация" },
         { id: "task2", label: "Реактор идеального вытеснения" },
-        { id: "task3", label: "Задание 3" }
+        { id: "task3", label: "Идентификация ОУ" }
     ];
 
     return (

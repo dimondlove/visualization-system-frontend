@@ -126,7 +126,7 @@ export default function Task3Tab() {
 
 
             {canCompare && (
-                <Task3CompareBlock res2={res2} res3={res3} />
+                <Task3CompareBlock res2={res2} res3={res3} Ftable={params.Ftable} />
             )}
         </div>
     );
