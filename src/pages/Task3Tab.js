@@ -9,8 +9,9 @@ export default function Task3Tab() {
     const [file, setFile] = useState(null);
     const [params, setParams] = useState({
         d: 10,
-        N: 28,
-        Ftable: 2.58,
+        Ne: 28,
+        Nu: 10,
+        Ftable: 2.49,
     });
 
     const [res2, setRes2] = useState(null);
@@ -31,7 +32,8 @@ export default function Task3Tab() {
             const form = new FormData();
             form.append("file", file);
             form.append("d", params.d);
-            form.append("N", params.N);
+            form.append("Ne", params.Ne);
+            form.append("Nu", params.Nu);
             form.append("Ftable", params.Ftable);
             form.append("method", method);
 
@@ -78,7 +80,7 @@ export default function Task3Tab() {
                 />
 
                 <div className="grid grid-cols-3 gap-4">
-                    {["d", "N", "Ftable"].map((key) => (
+                    {["d", "Ne", "Nu", "Ftable"].map((key) => (
                         <div key={key} className="flex flex-col">
                             <label className="text-sm text-gray-700 mb-1">{key}</label>
                             <input
